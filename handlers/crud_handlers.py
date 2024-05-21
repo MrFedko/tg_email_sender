@@ -1,20 +1,12 @@
-import asyncio
-import os
-import json
-from datetime import datetime
 from aiogram import types, F as f, Router
 from aiogram.fsm.context import FSMContext
-from aiogram.types import CallbackQuery, FSInputFile
-from aiogram.filters import Command, StateFilter
-from magic_filter import F as MF
+from aiogram.filters import StateFilter
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from handlers.states import super_panel
 from keyboards.kbrds import start_super_keyboard, crud_keyboard, products_keyboard, \
     products_read_update_keyboard
 from handlers.lists import list_start_menu
-from loader import bot, dp, parser, sender
-from data.config import settings
 from data.lexicon import lexicon
 from loader import dataBase
 
