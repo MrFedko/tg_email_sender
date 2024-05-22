@@ -6,16 +6,16 @@ from utils.notify_admins import on_startup_notify, on_shutdown_notify
 from handlers import base, crud_handlers
 
 
-async def on_startup(bot_body):
+async def on_startup(bot):
     # sets the default commands
-    await set_default_commands(bot_body)
+    await set_default_commands(bot)
     # notify bot administrators
-    await on_startup_notify(bot_body)
+    await on_startup_notify(bot)
 
 
-async def on_shutdown(bot_body):
+async def on_shutdown(bot):
     # notify bot administrators
-    await on_shutdown_notify(bot_body)
+    await on_shutdown_notify(bot)
 
 
 def connect_routers():
