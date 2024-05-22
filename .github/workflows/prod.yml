@@ -19,6 +19,4 @@ jobs:
           port: 22
           script: |
             cd /home
-            sudo /home/github/scripts/dev_grant_github.sh
             git pull git@github.com:MrFedko/tg_email_sender.git
-            sudo /home/github/scripts/dev_grant_admin.sh
