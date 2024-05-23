@@ -55,7 +55,7 @@ async def send_email(message: types.Message, state: FSMContext):
     products, name, mail, phone = parser.pars_text(text)
     user_id = dataBase.read_client_id(mail)
     for product in products:
-        mail_theme, mail_text = dataBase.get_text(product)
+        mail_theme, mail_text = dataBase.get_text(product[0])
         mail_text = mail_text.format(name=name)
         sender.send_mail(mail, mail_theme, mail_text)
         dataBase.new_order(user_id[0], product[0], product[1])
