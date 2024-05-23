@@ -8,12 +8,13 @@ class Sender:
     def __init__(self):
         self.email = settings.EMAIL
         self.pswrd = settings.EMAILPSWRD
+
+
+
+    def send_mail(self, mailto, mail_theme, mail_text):
         self.server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
         self.server.login(self.email, self.pswrd)
         self.server.auth_plain()
-
-    def send_mail(self, mailto, mail_theme, mail_text):
-
         msg = MIMEMultipart()
         msg['From'] = self.email
         msg['To'] = mailto
