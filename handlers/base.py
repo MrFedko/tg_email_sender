@@ -52,19 +52,18 @@ async def send_mail(call: types.CallbackQuery, state: FSMContext):
 @router.message(StateFilter(super_panel.mail), flags={"chat_action": "typing"})
 async def send_email(message: types.Message, state: FSMContext):
     text = message.text.replace('"', '').replace("'", '').replace("“", '').replace("”", '').replace("/", "")
-    product, name, mail, phone = parser.pars_text(text)
-    mail_theme, mail_text = dataBase.get_text(product)
-    mail_text = mail_text.format(name=name)
+    products, name, mail, phone = parser.pars_text(text)
+    user_id = dataBase.read_client_id(mail)
+    for product in products:
+        mail_theme, mail_text = dataBase.get_text(product)
+        mail_text = mail_text.format(name=name)
+        sender.send_mail(mail, mail_theme, mail_text)
+        dataBase.new_order(user_id[0], product[0], product[1])
     markup = await start_super_keyboard()
-    sender.send_mail(mail, mail_theme, mail_text)
     client = dataBase.read_client(mail)
     if not client:
         dataBase.new_client(name, mail, phone)
-    user_id = dataBase.read_client_id(mail)
-    date_pattern = r'\b\d{1,2}\s[а-яА-Я]+\b'
-    product_date = re.findall(date_pattern, text)
-    dataBase.new_order(user_id[0], product, product_date[0])
-    await message.answer(f"""{product}, {name}, {mail}, {phone}
+    await message.answer(f"""{products}, {name}, {mail}, {phone}
 Письмо отправлено.""", reply_markup=markup)
     await state.clear()
 
