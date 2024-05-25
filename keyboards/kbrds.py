@@ -9,7 +9,7 @@ async def start_super_keyboard() -> InlineKeyboardMarkup:
     buttons = [
         InlineKeyboardButton(text=lexicon["send_mail"], callback_data="mail"),
         InlineKeyboardButton(text=lexicon["db_button"], callback_data="db_api"),
-        InlineKeyboardButton(text=lexicon["fast_request"], callback_data="fast_requests"),
+        InlineKeyboardButton(text=lexicon["group_mail"], callback_data="group_mail"),
     ]
     return markup.row(*buttons, width=2).as_markup()
 
@@ -42,4 +42,25 @@ async def products_read_update_keyboard(task) -> InlineKeyboardMarkup:
     for product in all_products:
         buttons.append(InlineKeyboardButton(text=product[1], callback_data=f"{task}key {product[0]}"))
     buttons.append(InlineKeyboardButton(text=lexicon["button_back"], callback_data="products"))
+    return markup.row(*buttons, width=2).as_markup()
+
+
+async def products_for_group_mail_keyboard(date) -> InlineKeyboardMarkup:
+    markup = InlineKeyboardBuilder()
+    buttons = []
+    all_products = dataBase.read_products()
+    for product in all_products:
+        buttons.append(InlineKeyboardButton(text=product[1], callback_data=f"groupsend /{date}/{product[0]}"))
+    buttons.append(InlineKeyboardButton(text=lexicon["button_back"], callback_data="group_mail"))
+    return markup.row(*buttons, width=2).as_markup()
+
+
+
+async def products_dates_keyboard() -> InlineKeyboardMarkup:
+    markup = InlineKeyboardBuilder()
+    buttons = []
+    all_dates = dataBase.read_dates()
+    for date in all_dates:
+        buttons.append(InlineKeyboardButton(text=date, callback_data=f"proddates {date}"))
+    buttons.append(InlineKeyboardButton(text=lexicon["button_back"], callback_data="cancel_mail"))
     return markup.row(*buttons, width=2).as_markup()

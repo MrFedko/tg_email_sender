@@ -82,6 +82,24 @@ class Database:
         result = self.cursor.fetchone()
         return result
 
+    def read_client_id_by_product_day(self, date):
+        self.cursor.execute("""SELECT fk_user_id FROM orders
+        WHERE product_date = ? """, (date, ))
+        result = self.cursor.fetchall()
+        return result
+
+    def read_dates(self):
+        self.cursor.execute("""SELECT product_date FROM orders""")
+        dates = self.cursor.fetchall()
+        return dates
+
+    def read_mail_by_id(self, user_id):
+        self.cursor.execute("""SELECT mail, name from clients
+        WHERE id = ?""", (user_id, ))
+        user_mails = self.cursor.fetchall()
+        return user_mails
+
+
     # update
     def update_product(self, prod_id, name, theme, text):
         self.cursor.execute("""
@@ -90,3 +108,4 @@ class Database:
         WHERE id = ?
     """, (name, theme, text, prod_id))
         self.connection.commit()
+

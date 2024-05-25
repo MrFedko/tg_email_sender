@@ -3,7 +3,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from handlers.states import super_panel
+from handlers.states import Super_panel
 from keyboards.kbrds import start_super_keyboard, crud_keyboard, products_keyboard, \
     products_read_update_keyboard
 from handlers.lists import list_start_menu
@@ -21,7 +21,7 @@ async def crud_menu(call: types.CallbackQuery, state: FSMContext):
         "работа с базой данных", reply_markup=markup
     )
     await call.answer()
-    await state.set_state(super_panel.crud_main)
+    await state.set_state(Super_panel.crud_main)
 
 
 # crud products menu
@@ -32,7 +32,7 @@ async def products_menu(call: types.CallbackQuery, state: FSMContext):
         "практики", reply_markup=markup
     )
     await call.answer()
-    await state.set_state(super_panel.crud_products)
+    await state.set_state(Super_panel.crud_products)
 
 
 # create product
@@ -48,11 +48,11 @@ async def products_create(call: types.CallbackQuery, state: FSMContext):
 Там где должно быть имя клиента, вставь {name}""", reply_markup=btn_cancel.as_markup()
     )
     await call.answer()
-    await state.set_state(super_panel.product_create)
+    await state.set_state(Super_panel.product_create)
 
 
 # get text for new product
-@router.message(StateFilter(super_panel.product_create), flags={"chat_action": "typing"})
+@router.message(StateFilter(Super_panel.product_create), flags={"chat_action": "typing"})
 async def prod_create(message: types.Message, state: FSMContext):
     text = message.text.replace('"', '').replace("'", '').replace("“", '').replace("”", '').replace("/", "")
     lines = text.split('\n', 2)
@@ -74,7 +74,7 @@ async def prods_read(call: types.CallbackQuery, state: FSMContext):
         "Все практики", reply_markup=markup
     )
     await call.answer()
-    await state.set_state(super_panel.products_read)
+    await state.set_state(Super_panel.products_read)
 
 
 # read product
@@ -98,7 +98,7 @@ async def prods_update(call: types.CallbackQuery, state: FSMContext):
         "Все практики", reply_markup=markup
     )
     await call.answer()
-    await state.set_state(super_panel.products_update)
+    await state.set_state(Super_panel.products_update)
 
 
 # update product
@@ -115,11 +115,11 @@ async def prod_update(call: types.CallbackQuery, state: FSMContext):
 Там где должно быть имя клиента, вставь {{name}}""", reply_markup=btn_cancel.as_markup()
     )
     await call.answer()
-    await state.set_state(super_panel.product_update)
+    await state.set_state(Super_panel.product_update)
 
 
 # get text for update product
-@router.message(StateFilter(super_panel.product_update), flags={"chat_action": "typing"})
+@router.message(StateFilter(Super_panel.product_update), flags={"chat_action": "typing"})
 async def prod_update_get_text(message: types.Message, state: FSMContext):
     text = message.text.replace('"', '').replace("'", '').replace("“", '').replace("”", '')
     lines = text.split('\n', 3)

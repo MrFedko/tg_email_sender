@@ -1,8 +1,8 @@
 lexicon = {
     "/start": "Hello {name}. I can send emails for your clients",
-    "send_mail": "рассылка",
+    "send_mail": "одиночная рассылка",
     "db_button": "база данных",
-    "fast_request": "быстрый запрос",
+    "group_mail": "рассылка по мероприятию",
     "button_back": "назад",
     "products": "практики",
     "clients": "клиенты",

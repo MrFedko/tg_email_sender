@@ -1,7 +1,7 @@
 from aiogram.filters.state import State, StatesGroup
 
 
-class super_panel(StatesGroup):
+class Super_panel(StatesGroup):
     mail = State()
     crud_main = State()
     crud_products = State()
@@ -9,3 +9,5 @@ class super_panel(StatesGroup):
     products_read = State()
     products_update = State()
     product_update = State()
+    group_mail = State()
+    send_group_mail = State()

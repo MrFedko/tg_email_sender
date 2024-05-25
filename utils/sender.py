@@ -8,11 +8,11 @@ class Sender:
     def __init__(self):
         self.email = settings.EMAIL
         self.pswrd = settings.EMAILPSWRD
+        self.server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
 
 
 
     def send_mail(self, mailto, mail_theme, mail_text):
-        self.server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
         self.server.login(self.email, self.pswrd)
         self.server.auth_plain()
         msg = MIMEMultipart()
@@ -24,3 +24,4 @@ class Sender:
                 MIMEText(mail_text, 'plain', 'utf-8')
             )
         self.server.send_message(msg)
+        self.server.quit()
