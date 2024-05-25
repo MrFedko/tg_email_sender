@@ -98,7 +98,6 @@ async def send_group_mail(call: types.CallbackQuery, state: FSMContext):
 
 @router.callback_query(lambda f: f.data.startswith("groupsend"))
 async def now_send_group_mail(call: types.CallbackQuery, state: FSMContext):
-    markup = await start_super_keyboard()
     _, date, product_id = call.data.split("/")
     users = dataBase.read_client_mail_name_by_product_day(date)
     _, mail_theme, mail_text = dataBase.read_product(product_id)
@@ -106,8 +105,10 @@ async def now_send_group_mail(call: types.CallbackQuery, state: FSMContext):
     for user_name, user_mail in users:
         mail_text = mail_text.format(name=user_name)
         sender.send_mail(user_mail, mail_theme, mail_text)
-        text += f"{user_name}: {user_mail} \n"
+        text += f"{user_name}: {user_mail}"
+        text += "\n"
+    markup = await start_super_keyboard()
     await call.message.edit_text(f"""Письма отправлены для:
 {text}""", reply_markup=markup)
-    await call.answer("я сделяль")
+    await call.answer()
     await state.clear()
