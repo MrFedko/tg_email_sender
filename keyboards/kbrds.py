@@ -61,6 +61,6 @@ async def products_dates_keyboard() -> InlineKeyboardMarkup:
     buttons = []
     all_dates = dataBase.read_dates()
     for date in all_dates:
-        buttons.append(InlineKeyboardButton(text=date, callback_data=f"proddates {date}"))
+        buttons.append(InlineKeyboardButton(text=date, callback_data=f"proddates {date[0]}"))
     buttons.append(InlineKeyboardButton(text=lexicon["button_back"], callback_data="cancel_mail"))
     return markup.row(*buttons, width=2).as_markup()
