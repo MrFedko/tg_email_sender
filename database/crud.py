@@ -89,7 +89,7 @@ class Database:
         return result
 
     def read_dates(self):
-        self.cursor.execute("""SELECT product_date FROM orders""")
+        self.cursor.execute("""SELECT DISTINCT product_date FROM orders""")
         dates = self.cursor.fetchall()
         return dates
 
