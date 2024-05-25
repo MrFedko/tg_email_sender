@@ -59,8 +59,8 @@ async def products_for_group_mail_keyboard(date) -> InlineKeyboardMarkup:
 async def products_dates_keyboard() -> InlineKeyboardMarkup:
     markup = InlineKeyboardBuilder()
     buttons = []
-    all_dates = dataBase.read_dates()
-    for date, product_name in all_dates:
-        buttons.append(InlineKeyboardButton(text=f"{date} {product_name}", callback_data=f"proddates {date[0]}"))
+    all_dates_names = dataBase.read_dates_and_names()
+    for date, product_name in all_dates_names:
+        buttons.append(InlineKeyboardButton(text=f"{date} {product_name}", callback_data=f"proddates {date}"))
     buttons.append(InlineKeyboardButton(text=lexicon["button_back"], callback_data="cancel_mail"))
     return markup.row(*buttons, width=2).as_markup()

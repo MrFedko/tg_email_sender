@@ -83,17 +83,17 @@ class Database:
         return result
 
     def read_client_mail_name_by_product_day(self, date):
-        self.cursor.execute("""SELECT clients.name, clients.mail 
+        self.cursor.execute("""SELECT DISTINCT clients.name, clients.mail 
             FROM orders
             JOIN clients ON orders.fk_user_id = clients.id
             WHERE orders.product_date = ?""", (date, ))
         result = self.cursor.fetchall()
         return result
 
-    def read_dates(self):
+    def read_dates_and_names(self):
         self.cursor.execute("""SELECT DISTINCT product_date, fk_product_name FROM orders""")
-        dates = self.cursor.fetchall()
-        return dates
+        result = self.cursor.fetchall()
+        return result
 
     def read_mail_by_id(self, user_id):
         self.cursor.execute("""SELECT mail, name from clients
