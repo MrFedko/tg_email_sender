@@ -6,13 +6,14 @@ from email.mime.text import MIMEText
 
 class Sender:
     def __init__(self):
+        self.server = None
         self.email = settings.EMAIL
         self.pswrd = settings.EMAILPSWRD
-        self.server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
 
 
 
     def send_mail(self, mailto, mail_theme, mail_text):
+        self.server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
         self.server.login(self.email, self.pswrd)
         self.server.auth_plain()
         msg = MIMEMultipart()
