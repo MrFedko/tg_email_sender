@@ -105,8 +105,6 @@ async def now_send_group_mail(call: types.CallbackQuery, state: FSMContext):
         mail_text = mail_text.format(name=user_name)
         sender.send_mail(user_mail, mail_theme, mail_text)
     markup = await start_super_keyboard()
-    text = "\n"
-    users_text = (text + f"{user[0]}: {user[1]}" + "\n" for user in users)
-    await call.message.edit_text(f"""Письма отправлены для: {users_text}""", reply_markup=markup)
+    await call.message.edit_text(f"""Письма отправлены для: {users}""", reply_markup=markup)
     await call.answer()
     await state.clear()
