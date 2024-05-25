@@ -96,7 +96,7 @@ async def send_group_mail(call: types.CallbackQuery, state: FSMContext):
     await call.answer()
     await state.set_state(Super_panel.send_group_mail)
 
-@router.callback_query(f.data == "groupsend")
+@router.callback_query(lambda f: f.data.startswith("groupsend"))
 async def now_send_group_mail(call: types.CallbackQuery, state: FSMContext):
     markup = await start_super_keyboard()
     _, date, product_id = call.data.split("/")
