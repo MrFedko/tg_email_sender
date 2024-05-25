@@ -82,9 +82,11 @@ class Database:
         result = self.cursor.fetchone()
         return result
 
-    def read_client_id_by_product_day(self, date):
-        self.cursor.execute("""SELECT fk_user_id FROM orders
-        WHERE product_date = ? """, (date, ))
+    def read_client_mail_name_by_product_day(self, date):
+        self.cursor.execute("""SELECT clients.name, clients.mail 
+            FROM orders
+            JOIN clients ON orders.fk_user_id = clients.id
+            WHERE orders.product_date = ?""", (date, ))
         result = self.cursor.fetchall()
         return result
 

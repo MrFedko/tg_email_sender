@@ -100,10 +100,10 @@ async def send_group_mail(call: types.CallbackQuery, state: FSMContext):
 async def now_send_group_mail(call: types.CallbackQuery, state: FSMContext):
     markup = await start_super_keyboard()
     _, date, product_id = call.data.split("/")
-    users = dataBase.read_client_id_by_product_day(date)
+    users = dataBase.read_client_mail_name_by_product_day(date)
     _, mail_theme, mail_text = dataBase.read_product(product_id)
     text = ""
-    for user_mail, user_name in users:
+    for user_name, user_mail in users:
         mail_text = mail_text.format(name=user_name)
         sender.send_mail(user_mail, mail_theme, mail_text)
         text += f"{user_name}: {user_mail} \n"
