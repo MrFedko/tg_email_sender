@@ -83,7 +83,7 @@ class Database:
         return result
 
     def read_client_mail_name_by_product_day(self, date):
-        self.cursor.execute("""SELECT DISTINCT clients.name, clients.mail 
+        self.cursor.execute("""SELECT clients.name, clients.mail 
             FROM orders
             JOIN clients ON orders.fk_user_id = clients.id
             WHERE orders.product_date = ?""", (date, ))
